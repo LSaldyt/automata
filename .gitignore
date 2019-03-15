@@ -1,5 +1,6 @@
 # Project specific binaries
 hello
+automata
 
 # General Haskell files
 dist
