@@ -8,9 +8,8 @@ expand array = [0] ++ array ++ [0]
 
 rule segment = 0
 
-applyauto array = [rule segment | a <- expanded,
-                                b <- tail expanded,
-                                c <- tail . tail $ expanded,
+applyauto array = [rule segment | 
+                                (a, b, c) <- zip3 (init . init $ expanded) (tail . init $ expanded) (tail . tail $ expanded),
                                 let segment = [a, b, c]] where expanded = expand array
 
 main = print $ applyauto . expand $ initial
