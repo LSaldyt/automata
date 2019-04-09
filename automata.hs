@@ -5,7 +5,6 @@ import Data.List (find)
 import Data.Maybe
 
 initial = [1]
-
 expand array = [0] ++ array ++ [0]
 
 toBinary 0 = [ 0 ]
@@ -24,4 +23,14 @@ iterate_automata array = [placeholder_rule segment |
                              (a, b, c) <- zip3 (init . init $ expanded) (init . tail $ expanded) (tail . tail $ expanded),
                              let segment = [a, b, c]] where expanded = expand . expand $ array
 
-main = print $ iterate_automata . iterate_automata . expand $ initial
+max_n = 100
+loop_it state n = do
+    let next_state = iterate_automata state
+    print next_state
+    if n < max_n
+        then
+            loop_it next_state (n + 1)
+        else
+            return ()
+
+main = loop_it (expand initial) 0
