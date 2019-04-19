@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+import matplotlib.pyplot as plt
+import numpy as np
+from backend import renderCubes
+
+import subprocess
+
+subprocess.call('./to_states', shell=True)
+
+excluded = {'[', '', ']', ',', ' ', '\n'}
+states = []
+with open('states.txt') as infile:
+    for line in infile:
+        states.append([int(item) for item in list(line) if item not in excluded])
+
+size_n = 50
+size = (size_n,) * 3
+ma = np.random.choice([0,1], size=size, p=[0.99, 0.01])
+x,y,z = np.indices(size)-.5
+positions = list()
+colors = list()
+
+z = 0.0
+y = 0.0
+for i, state in enumerate(states):
+    x = 0.0 - i
+    for item in state:
+        positions.append([x, y, z])
+        colors.append((item,) * 3)
+        x += 1.0
+    y += 1.0
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.set_aspect('equal')
+
+pc = renderCubes(positions, colors=colors,edgecolor="k")
+ax.add_collection3d(pc)
+
+ax.set_xlim([0, size_n])
+ax.set_ylim([0, size_n])
+ax.set_zlim([0, size_n])
+#plotMatrix(ax, ma)
+#ax.voxels(ma, edgecolor="k")
+
+plt.show()

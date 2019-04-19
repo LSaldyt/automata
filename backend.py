@@ -24,25 +24,3 @@ def renderCubes(positions, sizes=None, colors=None, **kwargs):
         g.append( cuboid(p, size=s) )
     return Poly3DCollection(np.concatenate(g),
                             facecolors=np.repeat(colors,6, axis=0), **kwargs)
-
-size = (10,) * 3
-ma = np.random.choice([0,1], size=size, p=[0.99, 0.01])
-x,y,z = np.indices(size)-.5
-positions = np.c_[x[ma==1], y[ma==1], z[ma==1]]
-positions = [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]]
-colors= np.random.rand(len(positions),3)
-
-fig = plt.figure()
-ax = fig.gca(projection='3d')
-ax.set_aspect('equal')
-
-pc = renderCubes(positions, colors=colors,edgecolor="k")
-ax.add_collection3d(pc)
-
-ax.set_xlim([0,10])
-ax.set_ylim([0,10])
-ax.set_zlim([0,10])
-#plotMatrix(ax, ma)
-#ax.voxels(ma, edgecolor="k")
-
-plt.show()

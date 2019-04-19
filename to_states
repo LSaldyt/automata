@@ -1,2 +1,3 @@
 #!/bin/bash
-./run > states.txt
+ghc automata.hs
+./automata > states.txt
