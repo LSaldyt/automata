@@ -21,11 +21,10 @@ x, y, z = np.indices(size) - 0.5
 positions = list()
 colors = list()
 
-#cmap = sns.color_palette("Reds")
-cmap = sns.cubehelix_palette(3)
-#print(cmap)
-#print(len(cmap))
-#1/0
+#cmap = sns.cubehelix_palette(9)
+#cmap = sns.color_palette("RdBu_r", 9)
+#cmap = sns.color_palette("RdBu", 5)
+cmap = sns.color_palette("RdBu", 3)
 
 z = 0.0
 y = 0.0
